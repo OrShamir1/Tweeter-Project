@@ -20,59 +20,67 @@ const tweeterModule = function () {
         }
     ];
     const counterHolder = {
-        _PostIdCounter: 2,
+        _postIdCounter: 2,
         _commentIdCounter: 6
     }
 
-    const getPostByID = function (postID) {
-        for(let post in _postsArray) {
-            if(_postsArray[post].id == postID) {
-                return postID
+    const goToPost = {
+        isPostInPostArray: function (postID) {
+            for (let post in _postsArray) {
+                if (_postsArray[post].id == postID) {
+                    return postID
+                }
             }
-            postID = undefined;
+        },
 
+        getPostIndexByPostId: function (postID) {
+            for(let postIndex in _postsArray) {
+                if(_postsArray[postIndex].id === postID) {
+                    return postIndex
+                }
+            }
         }
+
+
     }
 
+
     const getPosts = () => _postsArray;
-    const addPost = function(post) {
-        counterHolder._PostIdCounter += 1;
-        let postId = "p" + counterHolder._PostIdCounter;
+
+    const addPost = function (post) {
+        counterHolder._postIdCounter += 1;
+        let postId = "p" + counterHolder._postIdCounter;
         _postsArray.push({
             text: post,
             id: postId,
-            comments:[]
+            comments: []
         })
     }
 
     const removePost = function (postID) {
-        counterHolder._PostIdCounter -= 1;
-        if(getPostByID(postID)) {
+        if (goToPost.isPostInPostArray(postID)) {
             _postsArray.splice(postID, 1);
         }
     }
 
     const addComment = function (comment, postID) {
         counterHolder._commentIdCounter += 1;
-        let commentId = "c" + counterHolder._commentIdCounter ;
-        for(let post in _postsArray) {
-            if(_postsArray[post].id == postID) {
-                _postsArray[post].comments.push({ id: commentId, text: comment})
-            }
-        }
+        let commentId = "c" + counterHolder._commentIdCounter;
+        _postsArray[goToPost.getPostIndexByPostId(postID)].comments.push({ id: commentId, text: comment })
+            
+        
     }
 
     const removeComment = function (commentID) {
-        for(let post of _postsArray){
-            const POSTCOMMENTS = post.comments
-            for(let comment in POSTCOMMENTS) {   
-                if(POSTCOMMENTS[comment].id == commentID) {
-                    POSTCOMMENTS.splice(comment, 1);
+        for (let post of _postsArray) {
+            for (let comment in post.comments) {
+                if (post.comments[comment].id == commentID) {
+                    post.comments.splice(comment, 1);
                 }
             }
         }
     }
-    return{
+    return {
         addPost: addPost,
         getPosts: getPosts,
         removePost: removePost,

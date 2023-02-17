@@ -7,6 +7,7 @@ $("#post").click(function () {
     const newPost = $("#input").val();
     tweeter.addPost(newPost)
     renderFunctions.rendererPosts(tweeter.getPosts())
+    $("#input").val("")
 })
 $('#posts').on("click", ".delete", function () {
     const postID = $(this).closest("div").attr("id");
