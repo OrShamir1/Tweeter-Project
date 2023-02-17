@@ -3,13 +3,12 @@ renderer(tweeter.getPosts())
 
 $("#post").click(function () {
     
-    const NewPost = $("#input").val();
-    tweeter.addPost(NewPost)
+    const newPost = $("#input").val();
+    tweeter.addPost(newPost)
     renderer(tweeter.getPosts())
 })
 $('#posts').on("click", ".delete", function () {
     const postID = $(this).closest("div").attr("id");
-    console.log(postID);
     tweeter.removePost(postID)
     renderer(tweeter.getPosts())
 })

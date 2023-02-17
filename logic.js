@@ -23,15 +23,17 @@ const tweeterModule = function () {
         _PostIdCounter: 2,
         _commentIdCounter: 6
     }
+
     const getPostByID = function (postID) {
         for(let post in _postsArray) {
             if(_postsArray[post].id == postID) {
                 return postID
             }
-        postID = undefined;
+            postID = undefined;
 
         }
     }
+
     const getPosts = () => _postsArray;
     const addPost = function(post) {
         COUNTER_HOLDER._PostIdCounter += 1;
@@ -42,21 +44,24 @@ const tweeterModule = function () {
             comments:[]
         })
     }
+
     const removePost = function (postID) {
         COUNTER_HOLDER._PostIdCounter -= 1;
-            if(getPostByID(postID)) {
-                _postsArray.splice(postID, 1);
-            }
+        if(getPostByID(postID)) {
+            _postsArray.splice(postID, 1);
+        }
     }
+
     const addComment = function (comment, postID) {
         COUNTER_HOLDER._commentIdCounter += 1;
-        commentId = "c" + COUNTER_HOLDER._commentIdCounter ;
+        let commentId = "c" + COUNTER_HOLDER._commentIdCounter ;
         for(let post in _postsArray) {
             if(_postsArray[post].id == postID) {
                 _postsArray[post].comments.push({ id: commentId, text: comment})
             }
         }
     }
+
     const removeComment = function (commentID) {
         for(let post of _postsArray){
             const POSTCOMMENTS = post.comments
