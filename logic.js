@@ -40,11 +40,8 @@ const tweeterModule = function () {
                 }
             }
         }
-
-
     }
-
-
+    
     const getPosts = () => _postsArray;
 
     const addPost = function (post) {
@@ -58,17 +55,13 @@ const tweeterModule = function () {
     }
 
     const removePost = function (postID) {
-        if (goToPost.isPostInPostArray(postID)) {
-            _postsArray.splice(postID, 1);
-        }
+            _postsArray.splice(goToPost.getPostIndexByPostId(postID), 1);
     }
 
     const addComment = function (comment, postID) {
         counterHolder._commentIdCounter += 1;
         let commentId = "c" + counterHolder._commentIdCounter;
         _postsArray[goToPost.getPostIndexByPostId(postID)].comments.push({ id: commentId, text: comment })
-            
-        
     }
 
     const removeComment = function (commentID) {

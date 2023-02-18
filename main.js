@@ -1,5 +1,4 @@
 const tweeter = tweeterModule()
-// renderer(tweeter.getPosts())
 renderFunctions.rendererPosts(tweeter.getPosts())
 
 $("#post").click(function () {
@@ -9,7 +8,7 @@ $("#post").click(function () {
     renderFunctions.rendererPosts(tweeter.getPosts())
     $("#input").val("")
 })
-$('#posts').on("click", ".delete", function () {
+$('#posts').on("click", ".ri-close-fill", function () {
     const postID = $(this).closest("div").attr("id");
     tweeter.removePost(postID)
     renderFunctions.rendererPosts(tweeter.getPosts())
@@ -20,7 +19,7 @@ $('#posts').on("click", ".commentButton", function () {
     tweeter.addComment(newCommentText, postID)
     renderFunctions.rendererPosts(tweeter.getPosts())
 })
-$('#posts').on("click", '.deleteCommentButton', function () {
+$('#posts').on("click", '.ri-close-circle-line', function () {
     const toDeleteCommentId = $(this).closest("div.comments").attr("id");
     tweeter.removeComment(toDeleteCommentId)
     renderFunctions.rendererPosts(tweeter.getPosts())
